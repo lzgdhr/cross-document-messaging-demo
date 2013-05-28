@@ -14,11 +14,11 @@ https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Pyth
 Select and download and install the latest version for your operating system.
 After successfully install the Google AppEngine. Run it and select "File > Add Existing Application" on the menu and select one of the folders above. You may need to update the Port (NOT the "Admin Port") number after selecting the folder. Repeat this untill you add all three folders and then finally start them all.
 
-1. direct access demo
+1. direct access demo: 
 http://localhost:8080/1.direct-access.html
 
-2. postMessage demo
+2. postMessage demo: 
 http://localhost:8080/2.post-message.html
 
-3. ChannelMessage demo
+3. ChannelMessage demo: 
 http://localhost:8080/3.channel-messaging.html
