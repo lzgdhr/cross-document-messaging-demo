@@ -1,0 +1,13 @@
+application: cross-document-messaging-other-domain
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /
+  static_dir: statics
+
+libraries:
+- name: webapp2
+  version: "2.5.2"

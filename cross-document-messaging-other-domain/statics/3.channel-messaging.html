@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Channel Messaging</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+
+			*{
+				padding: 0;
+				margin: 0;
+				font-family: Arial;
+			}
+
+			body{
+				background-color: #393;
+				padding: 20px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1>Hi I am iframe 1</h1>
+		<script type="text/javascript">
+
+			document.addEventListener('DOMContentLoaded', function(){
+				var channel = new MessageChannel();
+				window.parent.postMessage(
+					'iframe1IsReady',
+					'http://localhost:8080',
+					[channel.port2]
+				);
+
+				channel.port1.addEventListener('message', function(event){
+					console.log('[iframe1] receive message on port1:', event.data);
+					channel.port1.postMessage('got it');
+				});
+				channel.port1.start();
+			});
+
+		</script>
+	</body>
+</html>

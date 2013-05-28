@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Post Message Demo</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+
+			*{
+				padding: 0;
+				margin: 0;
+				font-family: Arial;
+			}
+
+			body{
+				background-color: #9C9;
+				padding: 20px;
+			}
+
+			button{
+				padding: 6px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1>Hi I'm http://localhost:8081</h1>
+		<div>
+			<button>pong</button> <output>- </output>
+		</div>
+		<script type="text/javascript">
+
+			var button = document.getElementsByTagName('button')[0];
+			var output = document.getElementsByTagName('output')[0];
+
+			button.addEventListener('click', function(){
+				window.parent.postMessage('pong', '*');
+			});
+
+			window.addEventListener('message', function(e){
+				if (e.origin == 'http://localhost:8080') {
+					switch(e.data){
+						case 'ping':
+							output.innerText += '|*';
+							break;
+					}
+				};
+			});
+
+		</script>
+	</body>
+</html>

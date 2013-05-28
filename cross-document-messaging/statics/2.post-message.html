@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Post Message Demo</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+
+			*{
+				padding: 0;
+				margin: 0;
+				font-family: Arial;
+			}
+
+			iframe{
+				border: 2px solid #060;
+				border-radius: 6px;
+				margin-top: 20px;
+				width: 500px;
+				height: 200px;
+			}
+
+			body{
+				background-color: #6A6;
+				padding: 20px;
+			}
+
+			button{
+				padding: 6px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1>Hi I'm http://localhost:8080</h1>
+		<div>
+			<button>ping</button> <output>- </output>
+		</div>
+		<iframe src="http://localhost:8081/2.post-message.html"></iframe>
+		<script type="text/javascript">
+
+			var button = document.getElementsByTagName('button')[0];
+			var output = document.getElementsByTagName('output')[0];
+			var iframe = document.getElementsByTagName('iframe')[0];
+
+			button.addEventListener('click', function(){
+				iframe.contentWindow.postMessage('ping', 'http://localhost:8081');
+			});
+
+			window.addEventListener('message', function(e){
+				if (e.origin == 'http://localhost:8081') {
+					switch(e.data){
+						case 'pong':
+							output.innerText += '|*';
+							break;
+					}
+				};
+			});
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Channel Messaging</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+
+			*{
+				padding: 0;
+				margin: 0;
+				font-family: Arial;
+			}
+
+			body{
+				background-color: #6A6;
+				padding: 20px;
+			}
+
+			#container{
+
+			}
+
+			iframe{
+				border: 2px solid #060;
+				border-radius: 6px;
+				margin-top: 20px;
+				width: 300px;
+				height: 200px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1>Channel Messaging</h1>
+		<div id="container">
+			<iframe id="iframe1" src="http://localhost:8081/3.channel-messaging.html"></iframe>
+			<iframe id="iframe2" src="http://localhost:8082/3.channel-messaging.html"></iframe>
+			<script type="text/javascript">
+
+				var iframe1IsReady;
+				var iframe2IsReady;
+				var port2;
+
+				window.addEventListener('message', function(event){
+					if (event.origin == 'http://localhost:8081' && event.data == 'iframe1IsReady') {
+						console.log('[parent] iframe1 is ready');
+						iframe1IsReady = true;
+						port2 = event.ports[0];
+					};
+					if (event.origin == 'http://localhost:8082' && event.data == 'iframe2IsReady') {
+						console.log('[parent] iframe2 is ready');
+						iframe2IsReady = true;
+					};
+					if (iframe1IsReady && iframe2IsReady) {
+						forwardPortToIframe2();
+					}
+				});
+
+				function forwardPortToIframe2(){
+					console.log('[parent] OK I got your port2, transfering to iframe2 ...');
+					var iframe2 = document.getElementById('iframe2');
+					iframe2.contentWindow.postMessage(
+						'portOpen',
+						'http://localhost:8082',
+						[port2]
+					);
+				}
+
+			</script>
+		</div>
+	</body>
+</html>
